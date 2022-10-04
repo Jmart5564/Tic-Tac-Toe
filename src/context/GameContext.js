@@ -1,5 +1,5 @@
 import { useState } from 'react';
-// import { useContext } from 'react';
+import { useContext } from 'react';
 import { createContext } from 'react';
 
 const GameContext = createContext();
@@ -8,15 +8,15 @@ const GameContext = createContext();
 
 
 export function GameContextProvider({ children }) {
-  const [board, setBoard] = useState(['', '', '', '', '', '', '', '', '']);
+  const [square, setSquares] = useState(Array(9).fill(''));
   const [player, setPlayer] = useState('O');
   const [active, setActive] = useState(true);
 
   return (
     <GameContext.Provider
       value={{
-        board,
-        setBoard,
+        square,
+        setSquares,
         player,
         setPlayer,
         active,
@@ -26,4 +26,10 @@ export function GameContextProvider({ children }) {
       {children}
     </GameContext.Provider>
   );
+}
+
+export function useGame() {
+  const context = useContext(GameContext);
+  
+  return context;
 }
